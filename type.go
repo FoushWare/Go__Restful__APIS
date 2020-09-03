@@ -3,8 +3,9 @@ package main
 import "gorm.io/gorm"
 
 type Post struct {
-	Title string `gorm:"type:varchar(100);"`
-	Des   string `gorm:"type:varchar(500);"`
 	gorm.Model
+	Title string `gorm:"type:varchar(100);" json:"title" binding:"required"`
+	Des   string `gorm:"type:varchar(500);" json:"des" binding:"required"`
+	Status string `json:"status"`
 
 }
