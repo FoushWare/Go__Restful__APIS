@@ -13,9 +13,15 @@ Then ... Go to the project file and type   :
 ## Developing
 
 ### Built With
-GoLang , gin framework , gorm ,....
+
 The current technologies used by the starter kit are as follows:
 
+
+- GoLang , gin framework , gorm ,[gowatcher](https://github.com/canthefason/go-watcher)
+
+The current Tools : 
+
+ * Editors: Gland , Datagrip
 
 ### Prerequisites
 
@@ -54,7 +60,8 @@ The current technologies used by the starter kit are as follows:
 
 #### Run migrations:
 
-- Soon
+- [Migrate like This](https://gorm.io/docs/migration.html)
+```db.AutoMigrate(&Post{})``` in the main file 
 
 #### Run seeds:
 
