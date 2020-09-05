@@ -44,7 +44,7 @@ func main(){
 	r.GET("/posts", Posts )
 	r.GET("/posts/:id", Show )
 	r.POST("/posts", Store )
-	r.PUT("/posts/:id", Update )
+	r.PATCH("/posts/:id", Update )
 	r.DELETE("/posts/:id", Delete )
 	r.Run(":9080") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
