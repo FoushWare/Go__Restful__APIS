@@ -14,7 +14,7 @@ func Posts(g *gin.Context)  {
 
 	db.Limit(limit).Offset(offset).Find(&posts)
 	g.JSON(http.StatusOK,gin.H{
-		"error":"",
+		"message":"",
 		"data":posts,
 	})
 
@@ -22,12 +22,12 @@ func Posts(g *gin.Context)  {
 func Store(g *gin.Context)  {
 	var post Post
 	if err :=g.ShouldBindJSON(&post); err!=nil{
-		g.JSON(http.StatusBadRequest,gin.H{"error":"something went wrong with your request","data":""})
+		g.JSON(http.StatusBadRequest,gin.H{"message":"something went wrong with your request","data":""})
 		return
 	}
 	post.Status="Active"
 	db.Create(&post)
-	g.JSON(http.StatusCreated,gin.H{"error":"","data":post})
+	g.JSON(http.StatusCreated,gin.H{"message":"","data":post})
 	return
 
 
@@ -36,8 +36,32 @@ func Update(g *gin.Context)  {
 
 }
 func Delete(g *gin.Context)  {
+	id:=g.Param("id")
+	var post Post
+	db.First(&post,id)
+	if post.ID ==0 {
+		g.JSON(http.StatusNotFound,gin.H{"message":"We can not find the post","data":""})
+		return
+	}
+
+	//Soft Delete [delete it but it still hase reference in the DB
+	//db.Delete(&post)
+
+	//Hard delete
+	db.Unscoped().Delete(&post)
+
+	g.JSON(http.StatusOK,gin.H{"message":"Post has been deleted","data":""})
 
 }
 func Show(g *gin.Context)  {
+  id:=g.Param("id")
+  var post Post
+  db.First(&post,id)
+  if post.ID ==0 {
+	  g.JSON(http.StatusNotFound,gin.H{"message":"We can not find the post","data":""})
+	  return
+  }
+  	g.JSON(http.StatusOK,gin.H{"message":"","data":post})
 
 }
+
